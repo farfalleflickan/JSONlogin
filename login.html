@@ -15,11 +15,14 @@
         <script async type="text/javascript" src="login.js"></script>
         <div id="grandparent">
             <div id="parent">
-                <form id="myForm" action="" method="post" autocomplete="on">
-                    <label>Username:<br><input class="textfield" type="text" name="usrname" autocomplete="on"></label><br>
-                    <label>Password:<br><input class="textfield" type="password" name="usrpwd" autocomplete="on"></label><br>
-                    <label id="myCheckBoxLabel">I am creating a new account <input type="checkbox" name="checkbox" value="newAccount" id="myCheckBox"></label><br>
-                    <input id="formSubmitButton" type="button" value="Submit" onClick="cgiScript(this.form, 'https://www.google.com')">
+                <form id="myForm" action="javascript:cgiScript('YOUR SITE')" method="post" autocomplete="on">
+                    <label for="usrname">Username:</label><br>
+					<input id="usrname" class="textfield" type="text" name="username" autocomplete="on"><br>
+                    <label for="usrpwd">Password:</label><br>
+					<input id="usrpwd" class="textfield" type="password" name="password" autocomplete="current-password" required><br>
+                    <label id="myCheckBoxLabel">I am creating a new account</label>
+					<input type="checkbox" name="checkbox" value="newAccount" id="myCheckBox"><br>
+                    <input id="formSubmitButton" type="submit" value="Submit">
                 </form>
                 <div id="myModal" class="modal">
                     <div class="modal-content">

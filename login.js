@@ -20,7 +20,7 @@ window.onclick = function (event) {
     }
 };
 
-function cgiScript(form, newUrl) {
+function cgiScript(newUrl) {
     var cgiRequest = new XMLHttpRequest();
     cgiRequest.open("POST", "login.php", true);
     cgiRequest.responseType = 'text';
@@ -41,10 +41,10 @@ function cgiScript(form, newUrl) {
     };
     cgiRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     var usrName = "", usrPwd = "", mode = 0;
-    usrName = form.usrname.value;
-    usrPwd = form.usrpwd.value;
+    usrName = document.getElementById("usrname").value;
+    usrPwd = document.getElementById("usrpwd").value;
     if (usrName !== "" && usrPwd !== ""){
-        if (form.checkbox.checked) {
+        if (document.getElementById("myCheckBox").checked) {
             mode = 1;
         } else {
             mode = 0;
@@ -58,5 +58,7 @@ function cgiScript(form, newUrl) {
 document.addEventListener("keydown", function (e) {
 	if (e.keyCode === 13) {
 		document.getElementById("formSubmitButton").click();
+	} else if (e.keyCode === 27) {
+		modal.style.display = "none";
 	}
 });
