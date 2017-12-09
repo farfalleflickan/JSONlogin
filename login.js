@@ -29,13 +29,15 @@ function cgiScript(newUrl) {
             var res = cgiRequest.responseText;
             if (res === "0") {
                 document.location.href = newUrl;
+            } else if (res === "2") {
+                printModal("Your user is awaiting confirmation, contact your webadmin for more information");
             } else if (res === "1") {
                 printModal("Wrong username or password!");
             } else if (res === "-1") {
                 printModal("Something went wrong...<br>Reloading page...");
                 location.reload();
             } else {
-                printModal("Here is your login token:<br><b>" + res + "</b><br>Send this to your web admin!");
+                printModal(res);
             }
         }
     };
