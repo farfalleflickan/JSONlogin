@@ -15,5 +15,33 @@ if (isset($_SESSION['login_user']) == false || empty($_SESSION['login_user'])) {
 ?>
 ```
 and rename your file to ```.php```
+If you want to protect more than just a web page, you should have something similar to this (done in Nginx):
+```
+location ^~ /yourlocation {
+            index index.php;
+            set $tmp 0;
+
+            if ($http_cookie !~* "session_key_active"){
+                set $tmp 1;
+            }
+            if ( $request_filename ~ "login.*"){
+                set $tmp 0;
+            }
+
+            if ($tmp = 1){
+                rewrite ^/.* https://dariorostirolla.se/yourlocation/login.html last;
+            }
+
+            location ~ \.php$ {
+                fastcgi_pass unix:/run/php-fpm/php-fpm.sock;
+                fastcgi_index index.php;
+                include fastcgi.conf;
+                fastcgi_param SCRIPT_FILENAME $request_filename;
+                try_files $uri =404;
+            }
+        }
+
+```
+
 
 WIP, more clear instructions & coming... sometime in the future :)
