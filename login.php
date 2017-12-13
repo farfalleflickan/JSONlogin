@@ -1,10 +1,9 @@
 <?php
-session_start();
-
 if (isset($_POST["usrName"]) && isset($_POST["usrPwd"]) && isset($_POST["phpMode"])) {
     $usrname = $_POST["usrName"];
     $usrpwd = $_POST["usrPwd"];
     $phpMode = $_POST["phpMode"];
+	$reqIp = $_SERVER['REMOTE_ADDR'];
 
 	$myfile = file(".access_db");
 	$myfile = array_reverse($myfile);
@@ -39,7 +38,10 @@ if (isset($_POST["usrName"]) && isset($_POST["usrPwd"]) && isset($_POST["phpMode
             if (isset($myArr[1])) {
                 $hash = preg_replace('/\s+/', '', $myArr[1]);
                 if (password_verify($usrpwd, $hash)) {
-                    $_SESSION['login_user'] = bin2hex(openssl_random_pseudo_bytes(16));
+					$mySessionName=bin2hex(openssl_random_pseudo_bytes(16));
+					session_start();
+                    $_SESSION['login_user'] = $mySessionName;
+					setcookie('session_key_active','1');
                     $myOutput = "0";
 					$loginSuccess="true";
                     break;
@@ -47,7 +49,7 @@ if (isset($_POST["usrName"]) && isset($_POST["usrPwd"]) && isset($_POST["phpMode
             }
         }
         fclose($file_handle);
-		$myline = time()."\t".$usrname."\t".$loginSuccess."\n";
+		$myline = time()."\t".$usrname."\t".$loginSuccess."\t".$reqIp."\n";
 		file_put_contents(".access_db", $myline, FILE_APPEND);
         echo $myOutput;
     } else if ($phpMode == 1) {
