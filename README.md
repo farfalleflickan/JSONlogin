@@ -15,6 +15,7 @@ if (isset($_SESSION['login_user']) == false || empty($_SESSION['login_user'])) {
 ?>
 ```
 and rename your file to ```.php```
+
 If you want to protect more than just a web page, you should have something similar to this (done in Nginx):
 ```
 location ^~ /yourlocation {
