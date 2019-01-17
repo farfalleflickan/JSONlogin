@@ -31,7 +31,7 @@ location ^~ /yourlocation {
             }
 
             if ($tmp = 1){
-                rewrite ^/.* https://dariorostirolla.se/yourlocation/login.html last;
+                rewrite ^/.* https://mysite.com/yourlocation/login.html last;
             }
 
             location ~ \.php$ {
